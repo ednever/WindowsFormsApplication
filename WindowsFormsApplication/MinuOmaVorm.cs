@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace WindowsFormsApplication
         PictureBox pilt;
         ProgressBar eriba;
         Timer aeg;
+        //TaiwanCalendar kalender; 
         public MinuOmaVorm()
         {
             //InitializeComponent();
@@ -40,6 +42,7 @@ namespace WindowsFormsApplication
             oksad.Nodes.Add(new TreeNode("Märkeruut"));
             oksad.Nodes.Add(new TreeNode("Radionupp"));
             oksad.Nodes.Add(new TreeNode("Edenemisriba"));
+            oksad.Nodes.Add(new TreeNode("Kalender"));
 
             puu.AfterSelect += Puu_AfterSelect;
             puu.Nodes.Add(oksad);
@@ -71,7 +74,7 @@ namespace WindowsFormsApplication
             };
             pilt = new PictureBox
             {
-                Image = new Bitmap("unnamed.png"),//@"..\..\..\unnamed.png"
+                Image = new Bitmap("dolphine.png"),//@"..\..\..\unnamed.png"
                 Location = new Point(300, 450),
                 Size = new Size(100, 100),
                 SizeMode = PictureBoxSizeMode.Zoom,
@@ -172,6 +175,12 @@ namespace WindowsFormsApplication
                 aeg.Tick += Aeg_Tick;
                 this.Controls.Add(eriba);
             }
+            //else if (e.Node.Text == "Kalender")
+            //{
+            //    kalender = new TaiwanCalendar();
+            //    kalender.AddYears(new DateTime(),2005);
+            //    this.Controls.Add(kalender);
+            //}
         }        
         private void Nupp_Click(object sender, EventArgs e)
         {
