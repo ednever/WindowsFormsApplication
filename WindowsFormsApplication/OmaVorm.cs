@@ -5,12 +5,14 @@ using System.Text;
 using System.Media;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.IO;
 
 namespace WindowsFormsApplication
 {
     public class OmaVorm : Form
     {
-        string Fail;
+        string Fail = @"..\..\bubbles_sfx.wav";
         public OmaVorm() { }
         public OmaVorm(string Pealkiri, string Nupp, string Fail) 
         {
@@ -40,21 +42,38 @@ namespace WindowsFormsApplication
         private void NuppClick(object sender, EventArgs e)
         {
             Button nupp_sender = (Button)sender;
-            var vastus = MessageBox.Show("Kas tahate muusikat kuulata?","Küsimus", MessageBoxButtons.YesNo);
-            if (vastus == DialogResult.Yes)
-            {
-                using (SoundPlayer muusika = new SoundPlayer()) //@"..\..\bubbles_sfx.wav"
-                {
-                    muusika.SoundLocation = Fail;
-                    muusika.Load();
-                    muusika.Play();
-                    MessageBox.Show("Muusika mängib");
-                }
-            }
-            else
-            {
-                MessageBox.Show(":(");
-            }
+            Process.Start("explorer", "C:\\");
+            string fileName = "bubbles_sfx.wav";
+            string fullPath = Path.GetFullPath(fileName);
+            MessageBox.Show(fullPath);
+            //Process.Start(fullPath);
+
+            //Cmd(Fail);
+            //var vastus = MessageBox.Show("Kas tahate muusikat kuulata?","Küsimus", MessageBoxButtons.YesNo);
+            //if (vastus == DialogResult.Yes)
+            //{
+            //    using (SoundPlayer muusika = new SoundPlayer()) //@"..\..\bubbles_sfx.wav"
+            //    {
+            //        muusika.SoundLocation = Fail;
+            //        muusika.Load();
+            //        muusika.Play();
+            //        MessageBox.Show("Muusika mängib");
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show(":(");
+            //}
         }
+        //void Cmd(string line) 
+        //{
+        //    Process.Start(new ProcessStartInfo {FileName = "explorer", Arguments = $"/n, /select, {line}"});
+        //}
+
     }
 }
+//Открытие формы - DONE
+//Кнопка "Выбрать файл из проводника"
+//Поиск файла в проводнике
+//Сохранение пути выбранного музыкального файла
+//Кнопка "Play" с воспроизведением файла >>> после нажатия текст меняется на "Pause" и музыка приостанавливается
