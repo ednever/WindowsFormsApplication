@@ -75,7 +75,7 @@ namespace WindowsFormsApplication
             };
             pilt = new PictureBox
             {
-                Image = new Bitmap("dolphine.png"),//@"..\..\..\unnamed.png"
+                Image = new Bitmap(@"..\..\dolphine.png"),
                 Location = new Point(300, 450),
                 Size = new Size(100, 100),
                 SizeMode = PictureBoxSizeMode.Zoom,

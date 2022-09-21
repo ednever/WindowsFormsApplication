@@ -10,9 +10,11 @@ namespace WindowsFormsApplication
 {
     public class OmaVorm : Form
     {
+        string Fail;
         public OmaVorm() { }
         public OmaVorm(string Pealkiri, string Nupp, string Fail) 
         {
+            
             this.ClientSize = new System.Drawing.Size(300, 300);
             this.Text = Pealkiri;
             Button nupp = new Button
@@ -22,16 +24,16 @@ namespace WindowsFormsApplication
                 Size = new System.Drawing.Size(100,50),
                 BackColor = System.Drawing.Color.Aquamarine,
                 ForeColor = System.Drawing.Color.Black,
-            };
-            
+            };            
             Label failNimi = new Label
             {
                 Text = Fail,
                 Location = new System.Drawing.Point(50, 150),
-                Size=new System.Drawing.Size(100, 50),
-                BackColor=System.Drawing.Color.Aquamarine,
+                Size = new System.Drawing.Size(100, 50),
+                BackColor = System.Drawing.Color.Aquamarine,
                 ForeColor = System.Drawing.Color.Black,
             };
+            nupp.Click += NuppClick;
             this.Controls.Add(nupp);
             this.Controls.Add(failNimi);
         }
@@ -41,9 +43,12 @@ namespace WindowsFormsApplication
             var vastus = MessageBox.Show("Kas tahate muusikat kuulata?","Küsimus", MessageBoxButtons.YesNo);
             if (vastus == DialogResult.Yes)
             {
-                using (var muusika = new SoundPlayer(Fail))
+                using (SoundPlayer muusika = new SoundPlayer()) //@"..\..\bubbles_sfx.wav"
                 {
+                    muusika.SoundLocation = Fail;
+                    muusika.Load();
                     muusika.Play();
+                    MessageBox.Show("Muusika mängib");
                 }
             }
             else
