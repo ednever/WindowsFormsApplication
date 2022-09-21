@@ -22,7 +22,7 @@ namespace WindowsFormsApplication
         PictureBox pilt;
         ProgressBar eriba;
         Timer aeg;
-        //TaiwanCalendar kalender; 
+        TextBox tekst;
         public MinuOmaVorm()
         {
             //InitializeComponent();
@@ -42,7 +42,8 @@ namespace WindowsFormsApplication
             oksad.Nodes.Add(new TreeNode("Märkeruut"));
             oksad.Nodes.Add(new TreeNode("Radionupp"));
             oksad.Nodes.Add(new TreeNode("Edenemisriba"));
-            oksad.Nodes.Add(new TreeNode("Kalender"));
+            oksad.Nodes.Add(new TreeNode("Tekstkast"));
+            oksad.Nodes.Add(new TreeNode("OmaVorm"));
 
             puu.AfterSelect += Puu_AfterSelect;
             puu.Nodes.Add(oksad);
@@ -115,6 +116,12 @@ namespace WindowsFormsApplication
                 BackColor = Color.Green,
             };
             aeg = new Timer();
+            tekst = new TextBox()
+            {
+                Font = new Font("Arial", 34, FontStyle.Italic),
+                Location = new Point(350, 400),
+                Enabled = true,
+            };
 
             if (e.Node.Text == "Nupp")
             {
@@ -175,13 +182,18 @@ namespace WindowsFormsApplication
                 aeg.Tick += Aeg_Tick;
                 this.Controls.Add(eriba);
             }
-            //else if (e.Node.Text == "Kalender")
-            //{
-            //    kalender = new TaiwanCalendar();
-            //    kalender.AddYears(new DateTime(),2005);
-            //    this.Controls.Add(kalender);
-            //}
-        }        
+            else if (e.Node.Text == "Tekstkast")
+            {
+                
+                tekst.MouseDoubleClick += Tekst_DoubleClick;
+                this.Controls.Add(tekst);
+            }
+            else if (e.Node.Text == "OmaVorm")
+            {
+                OmaVorm oma = new OmaVorm("Kuulame muusikat", "Vajuta Siia", @"..\..\bubbles_sfx.wav");
+                oma.ShowDialog();
+            }
+        }
         private void Nupp_Click(object sender, EventArgs e)
         {
             int red, green, blue;
@@ -255,6 +267,17 @@ namespace WindowsFormsApplication
             if (eriba.Value == 100)
             {
                 eriba.Value -= 100;
+            }
+        }
+        private void Tekst_DoubleClick(object sender, EventArgs e)
+        {
+            if (tekst.Enabled == true)
+            {
+                tekst.Enabled = false;
+            }
+            else if (tekst.Enabled == false)
+            {
+                tekst.Enabled = true;
             }
         }
     }
