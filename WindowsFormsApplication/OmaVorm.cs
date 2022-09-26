@@ -12,26 +12,25 @@ namespace WindowsFormsApplication
 {
     public class OmaVorm : Form
     {
-        string Fail = @"..\..\bubbles_sfx.wav";
         public OmaVorm() { }
-        public OmaVorm(string Pealkiri, string Nupp, string Fail) 
-        {
-            
+        public OmaVorm(string Pealkiri, string Nupp) 
+        {            
             this.ClientSize = new System.Drawing.Size(300, 300);
             this.Text = Pealkiri;
             Button nupp = new Button
             {
                 Text = Nupp,
                 Location = new System.Drawing.Point(50, 50),
-                Size = new System.Drawing.Size(100,50),
+                Size = new System.Drawing.Size(100,25),
                 BackColor = System.Drawing.Color.Aquamarine,
                 ForeColor = System.Drawing.Color.Black,
-            };            
+            };
+            
             Label failNimi = new Label
             {
-                Text = Fail,
-                Location = new System.Drawing.Point(50, 150),
-                Size = new System.Drawing.Size(100, 50),
+                Text = "",
+                Location = new System.Drawing.Point(150, 50),
+                Size = new System.Drawing.Size(100, 25),
                 BackColor = System.Drawing.Color.Aquamarine,
                 ForeColor = System.Drawing.Color.Black,
             };
@@ -39,44 +38,26 @@ namespace WindowsFormsApplication
             this.Controls.Add(nupp);
             this.Controls.Add(failNimi);
         }
-        private void NuppClick(object sender, EventArgs e)
+        private void NuppClick(object sender, EventArgs e) 
         {
-            Button nupp_sender = (Button)sender;
             
-            string fileName = "bubbles_sfx.wav";
-            Process.Start("explorer", "C:\\");
-            
-            string fullPath = Path.GetFullPath(fileName);
-            MessageBox.Show(fullPath);
-            //Process.Start(fullPath);
-
-            //Cmd(Fail);
-            //var vastus = MessageBox.Show("Kas tahate muusikat kuulata?","Küsimus", MessageBoxButtons.YesNo);
-            //if (vastus == DialogResult.Yes)
-            //{
-            //    using (SoundPlayer muusika = new SoundPlayer()) //@"..\..\bubbles_sfx.wav"
-            //    {
-            //        muusika.SoundLocation = Fail;
-            //        muusika.Load();
-            //        muusika.Play();
-            //        MessageBox.Show("Muusika mängib");
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show(":(");
-            //}
+            Button nupp_sender = (Button)sender; 
+            EventArgs nupp_e = (EventArgs)e;
+            OpenFileDialog failiValik = new OpenFileDialog();
+            DialogResult tulemus = failiValik.ShowDialog();            
+            if (tulemus == DialogResult.OK)
+            {
+                nupp_sender.Text = "Play";
+                MuusikaKuulamine(failiValik.FileName);
+            }           
         }
-        //void Cmd(string line) 
-        //{
-        //    Process.Start(new ProcessStartInfo {FileName = "explorer", Arguments = $"/n, /select, {line}"});
-        //}
-
-    }
-    
+        private void MuusikaKuulamine(string file)
+        {
+            using (var muusika = new SoundPlayer(file))
+            {
+                muusika.Play();
+            }
+        }
+    }    
 }
-//Открытие формы - DONE
-//Кнопка "Выбрать файл из проводника"
-//Поиск файла в проводнике
-//Сохранение пути выбранного музыкального файла
 //Кнопка "Play" с воспроизведением файла >>> после нажатия текст меняется на "Pause" и музыка приостанавливается

@@ -190,12 +190,12 @@ namespace WindowsFormsApplication
             }
             else if (e.Node.Text == "OmaVorm")
             {
-                OmaVorm oma = new OmaVorm("Kuulame muusikat", "Vajuta Siia", @"..\..\bubbles_sfx.wav");
+                OmaVorm oma = new OmaVorm("Kuulame muusikat", "Vali fail:");
                 oma.ShowDialog();
             }
         }
         private void Nupp_Click(object sender, EventArgs e)
-        {
+        {       
             int red, green, blue;
             red = random.Next(100, 255);
             green = random.Next(100, 255);
