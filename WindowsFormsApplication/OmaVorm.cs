@@ -42,8 +42,10 @@ namespace WindowsFormsApplication
         private void NuppClick(object sender, EventArgs e)
         {
             Button nupp_sender = (Button)sender;
-            Process.Start("explorer", "C:\\");
+            
             string fileName = "bubbles_sfx.wav";
+            Process.Start("explorer", "C:\\");
+            
             string fullPath = Path.GetFullPath(fileName);
             MessageBox.Show(fullPath);
             //Process.Start(fullPath);
@@ -71,6 +73,7 @@ namespace WindowsFormsApplication
         //}
 
     }
+    
 }
 //Открытие формы - DONE
 //Кнопка "Выбрать файл из проводника"
