@@ -12,6 +12,7 @@ namespace WindowsFormsApplication
 {
     public class OmaVorm : Form
     {
+        Label failNimi;        
         public OmaVorm() { }
         public OmaVorm(string Pealkiri, string Nupp) 
         {            
@@ -26,6 +27,18 @@ namespace WindowsFormsApplication
                 ForeColor = System.Drawing.Color.Black,
             };
             
+            
+            nupp.Click += NuppClick;
+            this.Controls.Add(nupp);
+            
+        }
+        bool NuppWasClicked;
+        private void NuppClick(object sender, EventArgs e) 
+        {
+            
+            Button nupp_sender = (Button)sender;
+            nupp_sender.Enabled = true;
+
             Label failNimi = new Label
             {
                 Text = "",
@@ -34,22 +47,39 @@ namespace WindowsFormsApplication
                 BackColor = System.Drawing.Color.Aquamarine,
                 ForeColor = System.Drawing.Color.Black,
             };
-            nupp.Click += NuppClick;
-            this.Controls.Add(nupp);
-            this.Controls.Add(failNimi);
-        }
-        private void NuppClick(object sender, EventArgs e) 
-        {
-            
-            Button nupp_sender = (Button)sender; 
-            EventArgs nupp_e = (EventArgs)e;
+
+            Button nupp2 = new Button
+            {
+                Text = "Play",
+                Location = new System.Drawing.Point(50, 100),
+                Size = new System.Drawing.Size(100, 25),
+                BackColor = System.Drawing.Color.Aquamarine,
+                ForeColor = System.Drawing.Color.Black,
+            };
+            nupp2.Click += NuppClick2;
+
             OpenFileDialog failiValik = new OpenFileDialog();
-            DialogResult tulemus = failiValik.ShowDialog();            
+            DialogResult tulemus = failiValik.ShowDialog();
+            
             if (tulemus == DialogResult.OK)
             {
-                nupp_sender.Text = "Play";
-                MuusikaKuulamine(failiValik.FileName);
-            }           
+                if (NuppWasClicked)
+                {
+                    MuusikaKuulamine(failiValik.FileName);
+                    MessageBox.Show("Nice");
+                }   
+            }        
+            
+            string[] files = failiValik.FileNames;
+            foreach (string item in files)
+            {
+                string[] asd = item.Split('\\');
+                failNimi.Text = asd[asd.Length - 1];                               
+            }
+            
+            this.Controls.Add(failNimi);
+            this.Controls.Add(nupp2);
+            
         }
         private void MuusikaKuulamine(string file)
         {
@@ -57,6 +87,10 @@ namespace WindowsFormsApplication
             {
                 muusika.Play();
             }
+        }
+        private void NuppClick2(object sender, EventArgs e)
+        {            
+            NuppWasClicked = true;
         }
     }    
 }
